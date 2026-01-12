@@ -1,0 +1,18 @@
+[
+  {
+    "titulo": "Clase de Python",
+    "descripcion": "Introducción al proyecto de calendario",
+    "categoria": "Estudios",
+    "fecha_inicio": "2025-11-20",
+    "fecha_fin": "2025-11-20",
+    "hora_inicio": "09:00",
+    "hora_fin": "11:00"
+  },
+  {
+    "titulo": "Hackathon",
+    "descripcion": "Evento de programación de varios días",
+    "categoria": "Eventos",
+    "fecha_inicio": "2025-11-25",
+    "fecha_fin": "2025-11-27"
+  }
+]

@@ -1,7 +1,7 @@
 import json
-from tracemalloc import start
 from typing import List
-from .models import Event
+from .models import Event  # import relativo dentro de src
+
 
 def cargar_eventos_desde_json(path: str) -> List[Event]:
     """
@@ -20,9 +20,9 @@ def cargar_eventos_desde_json(path: str) -> List[Event]:
         },
         ...
     ]
-
     """
 
+    # 1) Intentar abrir el archivo
     try:
         with open(path, 'r', encoding='utf-8') as file:
             data = json.load(file)
@@ -31,12 +31,14 @@ def cargar_eventos_desde_json(path: str) -> List[Event]:
     except json.JSONDecodeError as e:
         raise ValueError(f"Error al parsear JSON: {e}")
     
+    # 2) Validar que el JSON tenga una lista
     if not isinstance(data, list):
         raise ValueError("El JSON debe contener una lista de eventos")
     
     eventos: List[Event] = []
     errors: List[str] = []
 
+    # 3) Convertir cada dict a Event usando Event.desde_dict
     for index, item in enumerate(data, start=1):
         try:
             evento = Event.desde_dict(item)
@@ -44,6 +46,7 @@ def cargar_eventos_desde_json(path: str) -> List[Event]:
         except ValueError as e:
             errors.append(f"Error en el evento índice {index}: {e}")
 
+    # 4) Si hay errores, los juntamos y lanzamos una excepción clara
     if errors:
         error_messages = "\n".join(errors)
         raise ValueError(f"Se encontraron errores al cargar eventos:\n{error_messages}")
